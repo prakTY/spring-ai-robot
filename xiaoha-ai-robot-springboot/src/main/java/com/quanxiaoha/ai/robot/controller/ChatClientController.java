@@ -29,13 +29,13 @@ public class ChatClientController {
      * @param message
      * @return
      */
-    @GetMapping(value = "/generateStream", produces = "text/html;charset=utf-8")
-    public Flux<String> generateStream(@RequestParam(value = "message", defaultValue = "你是谁？") String message) {
+    @GetMapping("/generate")
+    public String generate(@RequestParam(value = "message", defaultValue = "你是谁？") String message) {
+        // 一次性返回结果
         return chatClient.prompt()
-                .user(message) // 提示词
-                .stream() // 流式输出
+                .user(message)
+                .call()
                 .content();
-
     }
 
 }
